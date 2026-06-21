@@ -13,7 +13,7 @@ router.get("/hero", async (req, res) => {
              LIMIT 1`
         );
 
-        res.json(result.rows[0]);
+        res.json(result.rows[0] || {});
     } catch (err) {
         console.error(err);
         res.status(500).send("DB error");
@@ -51,11 +51,9 @@ router.get("/specialized", async (req, res) => {
 
         res.json(result.rows);
     } catch (err) {
+        console.error(err);
         res.status(500).send("DB error");
     }
 });
-// helper finction
-function getImageUrl(path) {
-    return `http://localhost:3000/${path}`;
-}
+
 module.exports = router;
