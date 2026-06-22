@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const pool = require("./db/database");
 
 // ROUTES
 const classesRoutes = require("./routes/classes");
@@ -43,6 +44,16 @@ app.get("/", (req, res) => {
     res.send("Gym API is running.");
 });
 
+// database test route
+app.get("/testdb", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT NOW()");
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
+});
 // start server
 const PORT = process.env.PORT || 3000;
 
