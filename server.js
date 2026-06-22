@@ -38,22 +38,20 @@ app.use("/media",
 
 app.get("/seed-images", async (req, res) => {
     try {
-        const result = await pool.query(`SELECT * FROM class_images;`);
-        console.log("BEFORE:", result.rows);
+        await pool.query(`DELETE FROM class_images;`);
 
         await pool.query(`
-            INSERT INTO class_images (class_id, image_url, type)
-            VALUES (999, 'test-image.jpg', 'class');
+            INSERT INTO class_images (class_id, image_url)
+            VALUES
+            (1, 'classesmedia/totalbodytone.jpg'),
+            (2, 'classesmedia/strongwomanclub.jpg'),
+            (3, 'classesmedia/cardiodance.jpg'),
+            (4, 'classesmedia/lowerbodysculpt.jpg'),
+            (5, 'classesmedia/yogaflow.jpg'),
+            (6, 'classesmedia/aquafitness.jpg');
         `);
 
-        const after = await pool.query(`SELECT * FROM class_images;`);
-        console.log("AFTER:", after.rows);
-
-        res.json({
-            before: result.rows,
-            after: after.rows
-        });
-
+        res.send("Seed successful");
     } catch (err) {
         console.error(err);
         res.status(500).send(err.message);
