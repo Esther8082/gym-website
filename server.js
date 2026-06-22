@@ -38,6 +38,8 @@ app.use("/media",
 
 app.get("/seed-images", async (req, res) => {
     try {
+        await pool.query(`DELETE FROM class_images;`);
+
         await pool.query(`
             INSERT INTO class_images (class_id, image_url, type)
             VALUES
@@ -46,14 +48,13 @@ app.get("/seed-images", async (req, res) => {
             (3, 'classesmedia/cardiodance.jpg', 'class'),
             (4, 'classesmedia/lowerbodysculpt.jpg', 'class'),
             (5, 'classesmedia/yogaflow.jpg', 'class'),
-            (6, 'classesmedia/aquafitness.jpg', 'class')
-            ON CONFLICT DO NOTHING;
+            (6, 'classesmedia/aquafitness.jpg', 'class');
         `);
 
-        res.send("Seeded images successfully");
+        res.send("Seed successful");
     } catch (err) {
         console.error(err);
-        res.status(500).send("Error seeding data");
+        res.status(500).send(err.message);
     }
 });
 
