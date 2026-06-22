@@ -36,6 +36,26 @@ app.use("/media",
     express.static(path.join(__dirname, "./media"))
 );
 
+app.get("/seed-images", async (req, res) => {
+    try {
+        await pool.query(`
+            INSERT INTO class_images (class_id, image_url, type)
+            VALUES
+            (1, 'classesmedia/totalbodytone.jpg', 'class'),
+            (2, 'classesmedia/strongwomanclub.jpg', 'class'),
+            (3, 'classesmedia/cardiodance.jpg', 'class'),
+            (4, 'classesmedia/lowerbodysculpt.jpg', 'class'),
+            (5, 'classesmedia/yogaflow.jpg', 'class'),
+            (6, 'classesmedia/aquafitness.jpg', 'class')
+            ON CONFLICT DO NOTHING;
+        `);
+
+        res.send("Seeded images successfully");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error seeding data");
+    }
+});
 
 // test route
 app.get("/", (req, res) => {
