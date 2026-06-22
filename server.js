@@ -27,15 +27,13 @@ app.use("/locations", locationsRoutes);
 app.use("/programs", programsRoutes);
 app.use("/class-images", classImagesRoutes);
 
-// frontend static images 
-app.use(
-    "/classesmedia",
-    express.static(path.join(__dirname, "../frontend/classesmedia"))
+
+app.use("/classesmedia",
+    express.static(path.join(__dirname, "./classesmedia"))
 );
 
-app.use(
-    "/media",
-    express.static(path.join(__dirname, "../frontend/media"))
+app.use("/media",
+    express.static(path.join(__dirname, "./media"))
 );
 
 
