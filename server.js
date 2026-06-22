@@ -36,27 +36,6 @@ app.use("/media",
     express.static(path.join(__dirname, "./media"))
 );
 
-app.get("/seed-images", async (req, res) => {
-    try {
-        await pool.query(`DELETE FROM class_images;`);
-
-        await pool.query(`
-            INSERT INTO class_images (class_id, image_url)
-            VALUES
-            (1, 'classesmedia/totalbodytone.jpg'),
-            (2, 'classesmedia/strongwomanclub.jpg'),
-            (3, 'classesmedia/cardiodance.jpg'),
-            (4, 'classesmedia/lowerbodysculpt.jpg'),
-            (5, 'classesmedia/yogaflow.jpg'),
-            (6, 'classesmedia/aquafitness.jpg');
-        `);
-
-        res.send("Seed successful");
-    } catch (err) {
-        console.error(err);
-        res.status(500).send(err.message);
-    }
-});
 
 // test route
 app.get("/", (req, res) => {
