@@ -11,6 +11,7 @@ const homeRoutes = require("./routes/home");
 const locationsRoutes = require("./routes/locations");
 const programsRoutes = require("./routes/programs");
 const classImagesRoutes = require("./routes/classimages");
+const clubsRoutes = require("./routes/clubs");
 
 const app = express();
 
@@ -26,7 +27,7 @@ app.use("/trainers", trainersRoutes);
 app.use("/locations", locationsRoutes);
 app.use("/programs", programsRoutes);
 app.use("/class-images", classImagesRoutes);
-
+app.use("/clubs", clubsRoutes);
 
 app.use("/classesmedia",
     express.static(path.join(__dirname, "./classesmedia"))
@@ -56,5 +57,5 @@ app.get("/testdb", async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Esther your Server is running on port ${PORT}`);
 });
