@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const pool = require("./db/database");
 
-// ROUTES
+// Import route files that handle specific API requests
 const classesRoutes = require("./routes/classes");
 const trainersRoutes = require("./routes/trainers");
 const membershipRoutes = require("./routes/memberships");
